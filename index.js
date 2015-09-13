@@ -1,5 +1,5 @@
 'use strict';
-var booljs = require('..');
+var booljs = require('bool.js');
 
 // Here is where magic happens
-booljs('com.example.api').run();
+booljs('{{namespace}}'){{server}}{{database}}.run();
