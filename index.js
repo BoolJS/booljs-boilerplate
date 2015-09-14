@@ -2,4 +2,7 @@
 var booljs = require('bool.js');
 
 // Here is where magic happens
-booljs('{{namespace}}'){{server}}{{database}}.run();
+booljs('{{namespace}}')
+    .setServerLoader('{{options.server_driver}}')
+    .setDatabaseLoader('{{options.database_driver}}')
+    .run();
