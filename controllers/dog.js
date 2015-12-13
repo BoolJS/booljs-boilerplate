@@ -9,6 +9,13 @@ module.exports = function(app){
         list: function(req, res, next){
             var dog = new Dog();
             json.promise(dog.list(), res, next);
+        },
+        upload: function (req, res) {
+            if(req.files){
+                json.standard(req.files[0], res);
+            } else {
+                json.error(new app.Error(400, 'FILE_MISSING'), res);
+            }
         }
     };
 

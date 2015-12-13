@@ -10,6 +10,13 @@ module.exports = function (app) {
             url: '/dog',
             action: dog.list,
             cors: true
+        },
+        {
+            method: 'post',
+            url: '/dog',
+            action: dog.upload,
+            cors: true,
+            files: true
         }
     ];
 
