@@ -10,6 +10,12 @@ module.exports = function (app) {
             url: '/dog',
             action: dog.list,
             cors: true
+        },
+        {
+            method: 'post',
+            url: '/mail',
+            action: dog.send,
+            cors: true
         }
     ];
 
