@@ -1,7 +1,14 @@
 {
     "node": true,
     "laxcomma": true,
-    "undef": true,
-    "strict": true,
-    "unused": true
+    "unused": false,
+    "undef": false,
+    "esnext": true,
+    "globals": {
+        "_": true,
+        "PATH": true,
+        "q": true,
+        "injector": true,
+        "log": true
+    }
 }
