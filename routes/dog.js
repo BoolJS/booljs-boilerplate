@@ -1,7 +1,6 @@
 'use strict';
 
 module.exports = function (app) {
-
     var dog = new app.controllers.Dog();
 
     return [
@@ -12,5 +11,4 @@ module.exports = function (app) {
             cors: true
         }
     ];
-
 };
