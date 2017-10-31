@@ -1,5 +1,5 @@
 'use strict';
-var booljs = require('..');
+const Bool = require('..');
 
 // Here is where magic happens
-booljs('com.example.api').run();
+module.exports = new Bool('com.example.api').run();
