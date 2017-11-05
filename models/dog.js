@@ -3,8 +3,6 @@
 const NoModel = require('booljs.nomodel/model');
 const dogs = [];
 
-console.log(NoModel);
-
 module.exports = class extends NoModel {
     constructor (app) {
         super();
