@@ -1,16 +1,14 @@
 'use strict';
 
-module.exports = function (app) {
+module.exports = class {
+    constructor (app) {
+        let user = new app.controllers.User();
 
-    var user = new app.controllers.User();
-
-    return [
-        {
+        return [ {
             method: 'get',
             url: '/users/me',
             action: user.get,
             cors: true
-        }
-    ];
-
+        } ];
+    }
 };

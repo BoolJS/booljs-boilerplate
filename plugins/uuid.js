@@ -1,9 +1,8 @@
 'use strict';
 
-module.exports = function (app) {
-    return function () {
-        var uuid = require('node-uuid');
+module.exports = class {
+    constructor (app) { this.uuid = app.utilities.NodeUuid; };
 
-        return uuid.getV1();
-    };
+    v1 () { return this.uuid.getV1(); }
+    v4 () { return this.uuid.getV4(); }
 };

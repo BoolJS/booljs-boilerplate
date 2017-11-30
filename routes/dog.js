@@ -1,16 +1,14 @@
 'use strict';
 
-module.exports = function (app) {
+module.exports = class {
+    constructor (app) {
+        let dog = new app.controllers.Dog();
 
-    var dog = new app.controllers.Dog();
-
-    return [
-        {
+        return [ {
             method: 'get',
-            url: '/dog',
+            url: '/dogs',
             action: dog.list,
             cors: true
-        }
-    ];
-
+        } ];
+    }
 };

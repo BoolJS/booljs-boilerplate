@@ -1,5 +1,7 @@
 'use strict';
-var booljs = require('..');
+
+const Bool = require('booljs');
 
 // Here is where magic happens
-booljs('com.example.api').run();
+new Bool('com.example.api', [ 'node-uuid', require.resolve('..') ])
+    .run();

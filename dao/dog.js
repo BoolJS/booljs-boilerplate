@@ -1,13 +1,11 @@
 'use strict';
 
-module.exports = function(app){
+module.exports = class DogDAO {
+    constructor (app) {
+        this.dao = new app.models.Dog();
+    }
 
-    var dog = new app.models.Dog();
-
-    return {
-        list: function(){
-            return dog.list();
-        }
+    list () {
+        return this.dao.list();
     };
-
 };

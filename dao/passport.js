@@ -1,15 +1,12 @@
 'use strict';
 
 module.exports = function (app) {
-    var Bearer = app.utilities['passport-http-bearer'];
+    let { Strategy } = app.utilities.PassportHttpBearer;
 
-    this.bearer = function () {
-        return new Bearer.Strategy(function (token, done) {
-            if(token == '123456') return done(null, {
-                id: 'John Doe'
-            });
-            return done(null, false);
-        });
-    };
-
+    this.bearer = () => new Strategy((token, done) => {
+        if (token === '123456') {
+            return done(null, { id: 'John Doe' });
+        }
+        return done(null, false);
+    });
 };

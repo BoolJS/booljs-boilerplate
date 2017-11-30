@@ -1,35 +1,60 @@
 'use strict';
 
-var dogs = [];
+const NoModel = require('booljs.nomodel/model');
 
-module.exports = function (app) {
+let dogs = [];
 
-    return {
-        list: function () {
-            return q.resolve(dogs);
-        },
-        index: function (id) {
-            for(var dog in dogs){
-                if(dogs[dog].id === id) return q.resolve(dog);
+module.exports = class DogModel extends NoModel {
+    constructor (app) {
+        super();
+        this.Error = app.Error;
+    }
+
+    async list () {
+        return dogs;
+    }
+
+    async index (id) {
+        for (let index in dogs) {
+            if (dogs[index].id === id) {
+                return index;
             }
-            return null;
-        },
-        find: function (id) {
-            var index = this.index(id);
-            if(index === null) throw new app.Error(
-                404, 'dog_not_found', 'The searched dog wasn\'t in the list'
-            );
-            return q.resolve(dogs[index]);
-        },
-        update: function (id, dog) {
-            injector(this.find(id), dog);
-        },
-        delete: function (id) {
-            var index = this.index(id);
-            if(index === null) throw new app.Error(
-                404, 'dog_not_found', 'The searched dog wasn\'t in the list'
-            );
-            dogs.splice(index, 1);
         }
-    };
+
+        return null;
+    }
+
+    async find (id) {
+        let index = this.index(id);
+
+        if (index === null) {
+            throw new this.Error(404,
+                'dog_not_found', 'The searched dog wasn\'t in the list'
+            );
+        }
+
+        return dogs[index];
+    }
+
+    async update (id, data) {
+        let index = this.index(id);
+        let dog = dogs[index];
+
+        let { ...dogProps } = dog;
+        let { ...dataProps } = data;
+
+        dogs[index] = { ...dogProps, ...dataProps };
+    }
+
+    async delete (id) {
+        let index = await this.index(id);
+
+        if (index === null) {
+            throw new this.Error(404,
+                'dog_not_found', 'The searched dog wasn\'t in the list'
+            );
+        }
+
+        dogs.splice(index, 1);
+    }
 };
