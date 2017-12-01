@@ -1,7 +1,7 @@
 {
     "passport": {
         "strategies": [
-            "bearer"
+            "bearer", "basic", "clientPassword"
         ],
         "defaultStrategy": "bearer",
         "strategyOptions": {
