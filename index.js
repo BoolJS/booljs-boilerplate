@@ -1,5 +1,13 @@
 'use strict';
-const Bool = require('..');
+const Bool = require('booljs');
 
 // Here is where magic happens
-module.exports = new Bool('com.example.api').run();
+module.exports = (async () => {
+    try {
+        return new Bool('com.example.api', [ require.resolve('..') ])
+            .setServerDrivers([ 'booljs.express' ])
+            .run();
+    } catch (error) {
+        console.error(error);
+    }
+})();
