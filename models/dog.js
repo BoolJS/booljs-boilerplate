@@ -1,35 +1,50 @@
 'use strict';
 
-var dogs = [];
+const NoModel = require('booljs.nomodel/model');
+const dogs = [];
 
-module.exports = function (app) {
+module.exports = class extends NoModel {
+    constructor (app) {
+        super();
+        this.Error = app.Error;
+    }
 
-    return {
-        list: function () {
-            return q.resolve(dogs);
-        },
-        index: function (id) {
-            for(var dog in dogs){
-                if(dogs[dog].id === id) return q.resolve(dog);
+    async list () {
+        return dogs;
+    }
+
+    async index (id) {
+        for (var dog in dogs) {
+            if (dogs[dog].id === id) {
+                return dog;
             }
-            return null;
-        },
-        find: function (id) {
-            var index = this.index(id);
-            if(index === null) throw new app.Error(
-                404, 'dog_not_found', 'The searched dog wasn\'t in the list'
-            );
-            return q.resolve(dogs[index]);
-        },
-        update: function (id, dog) {
-            injector(this.find(id), dog);
-        },
-        delete: function (id) {
-            var index = this.index(id);
-            if(index === null) throw new app.Error(
-                404, 'dog_not_found', 'The searched dog wasn\'t in the list'
-            );
-            dogs.splice(index, 1);
         }
-    };
+        return null;
+    }
+
+    async find (id) {
+        var index = this.index(id);
+        if (index === null) {
+            throw new this.Error(
+                404, 'dog_not_found', 'The searched dog wasn\'t in the list'
+            );
+        }
+        return dogs[index];
+    }
+
+    async update (id, dog) {
+        injector(this.find(id), dog);
+    }
+
+    async delete (id) {
+        var index = this.index(id);
+
+        if (index === null) {
+            throw new this.Error(
+                404, 'dog_not_found', 'The searched dog wasn\'t in the list'
+            );
+        }
+
+        dogs.splice(index, 1);
+    }
 };
