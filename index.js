@@ -1,8 +1,17 @@
 'use strict';
-var booljs = require('bool.js');
+
+const Bool = require('booljs');
 
 // Here is where magic happens
-booljs('{{namespace}}'{{{dependencies}}})
-    .setServerLoader('{{options.server_driver}}')
-    .setDatabaseLoader('{{options.database_driver}}')
-    .run();
+module.exports = (async () => {
+    try {
+        return new Bool('{{namespace}}', [
+            {{{dependencies}}}
+        ])
+            .setServerDrivers({{{options.serverDrivers}}})
+            .setDatabaseDrivers({{{options.databaseDrivers}}})
+            .run();
+    } catch (error) {
+        console.error(error);
+    }
+})();
